@@ -1,8 +1,8 @@
 package com.spring.controller.rest;
 
 import com.spring.model.dto.DTOUser;
-import com.spring.service.impl.DTOService;
-import com.spring.service.impl.UserService;
+import com.spring.service.interfaces.DTOService;
+import com.spring.service.interfaces.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

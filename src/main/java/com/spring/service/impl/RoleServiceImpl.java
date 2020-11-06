@@ -1,8 +1,8 @@
-package com.spring.service.interfaces;
+package com.spring.service.impl;
 
 import com.spring.model.Role;
 import com.spring.repository.RoleRepo;
-import com.spring.service.impl.RoleService;
+import com.spring.service.interfaces.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

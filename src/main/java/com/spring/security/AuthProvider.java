@@ -1,7 +1,7 @@
 package com.spring.security;
 
 import com.spring.model.User;
-import com.spring.service.impl.UserService;
+import com.spring.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

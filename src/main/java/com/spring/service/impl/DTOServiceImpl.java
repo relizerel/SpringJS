@@ -1,8 +1,8 @@
-package com.spring.service.interfaces;
+package com.spring.service.impl;
 
 import com.spring.model.User;
 import com.spring.model.dto.DTOUser;
-import com.spring.service.impl.DTOService;
+import com.spring.service.interfaces.DTOService;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

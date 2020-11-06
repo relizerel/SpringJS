@@ -1,4 +1,4 @@
-package com.spring.service.impl;
+package com.spring.service.interfaces;
 
 import com.spring.model.Role;
 

@@ -3,8 +3,8 @@ package com.spring.security;
 
 import com.spring.handler.LoginSuccessHandler;
 import com.spring.model.User;
-import com.spring.service.impl.RoleService;
-import com.spring.service.impl.UserService;
+import com.spring.service.interfaces.RoleService;
+import com.spring.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2SsoProperties;

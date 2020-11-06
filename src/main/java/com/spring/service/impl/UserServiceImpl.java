@@ -1,9 +1,9 @@
-package com.spring.service.interfaces;
+package com.spring.service.impl;
 
 
 import com.spring.model.User;
 import com.spring.repository.UserRepo;
-import com.spring.service.impl.UserService;
+import com.spring.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

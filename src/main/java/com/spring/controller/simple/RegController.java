@@ -1,8 +1,8 @@
 package com.spring.controller.simple;
 
 import com.spring.model.User;
-import com.spring.service.impl.RoleService;
-import com.spring.service.impl.UserService;
+import com.spring.service.interfaces.RoleService;
+import com.spring.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
