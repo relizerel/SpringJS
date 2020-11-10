@@ -1,7 +1,7 @@
 package com.spring.service.interfaces;
 
+import com.spring.model.DTOUser;
 import com.spring.model.User;
-import com.spring.model.dto.DTOUser;
 
 import java.util.List;
 

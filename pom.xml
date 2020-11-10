@@ -164,11 +164,12 @@
       <artifactId>jackson-datatype-hibernate5</artifactId>
       <version>2.9.9</version>
     </dependency> <!--jackson-datatype-hibernate5-->
-    <dependency>
-      <groupId>org.springframework.security.oauth.boot</groupId>
-      <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-      <version>2.0.0.RELEASE</version>
-    </dependency> <!--spring-security-oauth2-autoconfigure-->
+      <dependency>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+          <version>RELEASE</version>
+          <scope>compile</scope>
+      </dependency> <!--spring-security-oauth2-autoconfigure-->
   </dependencies>
 
   <build>

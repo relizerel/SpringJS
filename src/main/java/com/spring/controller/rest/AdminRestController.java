@@ -1,30 +1,34 @@
 package com.spring.controller.rest;
 
-import com.spring.model.dto.DTOUser;
+import com.spring.model.DTOUser;
 import com.spring.service.interfaces.DTOService;
+import com.spring.service.interfaces.RoleService;
 import com.spring.service.interfaces.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("admin/**")
+@RestController
+@RequestMapping("/admin/**")
 public class AdminRestController {
 
     private final UserService userService;
-    private final DTOService converter;
+    private final RoleService roleService;
+    private final DTOService dtoService;
 
-    public AdminRestController(UserService userService, DTOService converter) {
+    @Autowired
+    public AdminRestController(UserService userService, RoleService roleService, DTOService dtoService) {
         this.userService = userService;
-        this.converter = converter;
+        this.roleService = roleService;
+        this.dtoService = dtoService;
     }
 
     @GetMapping("userList")
     public ResponseEntity<List<DTOUser>> listOfUsers() {
-        List<DTOUser> dtoUsers = converter.userListConvertToDTO(userService.listUsers());
+        List<DTOUser> dtoUsers = dtoService.userListConvertToDTO(userService.getAllUsers());
         return dtoUsers != null && !dtoUsers.isEmpty()
                 ? new ResponseEntity<>(dtoUsers, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -32,7 +36,7 @@ public class AdminRestController {
 
     @GetMapping("user/{id}")
     public ResponseEntity<DTOUser> getUserById(@PathVariable(name = "id") Long id) {
-        DTOUser dtoUser = converter.userConvertToDTOUser(userService.getUserById(id));
+        DTOUser dtoUser = dtoService.userConvertToDTOUser(userService.getUserById(id));
         return dtoUser != null
                 ? new ResponseEntity<>(dtoUser, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -41,7 +45,7 @@ public class AdminRestController {
     @PostMapping("newUser")
     public ResponseEntity<DTOUser> newUser(@RequestBody DTOUser dtoUser) {
         try {
-            userService.addUser(converter.dtoUserConvertToUser(dtoUser));
+            userService.addUser(dtoService.dtoUserConvertToUser(dtoUser));
             return new ResponseEntity<>(dtoUser, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -51,7 +55,7 @@ public class AdminRestController {
     @PutMapping("updateUser")
     public ResponseEntity<DTOUser> updateUser(@RequestBody DTOUser dtoUser) {
         try {
-            userService.updateUser(converter.dtoUserConvertToUser(dtoUser));
+            userService.updateUser(dtoService.dtoUserConvertToUser(dtoUser));
             return new ResponseEntity<>(dtoUser, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -67,4 +71,5 @@ public class AdminRestController {
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

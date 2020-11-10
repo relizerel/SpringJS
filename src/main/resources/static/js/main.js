@@ -5,7 +5,7 @@ let deleteUserUrl = 'http://localhost:8080/admin/deleteUser/';
 let getUserByIdUrl = 'http://localhost:8080/admin/user/';
 let updateUserUrl = 'http://localhost:8080/admin/updateUser';
 
-let elementUsers = document.getElementById('nav-list-tab');
+let elementUserTable = document.getElementById('nav-list-tab');
 let elementNewUser = document.getElementById('nav-newUser-tab');
 let elementCreateUser = document.getElementById('createUser');
 let elementCreateUserRoles = document.getElementById('roleSelect');
@@ -14,9 +14,9 @@ let elementCloseDeleteModal2 = document.getElementById('closeDeleteModal2');
 let elementCloseUpdateModal1 = document.getElementById('closeUpdateModal');
 let elementCloseUpdateModal2 = document.getElementById('closeUpdateModal2');
 
-let adminUsersTable = $('#usersJs tbody');
+let adminUsersTable = $('#userTableJs tbody');
 let navbarInfo = $('#navBarInfo div');
-let userPage = $('#userPageJs tbody');
+let userInfo = $('#userInfoJs tbody');
 let deleteButtonInModalForm = $('#deleteButtonInModal div');
 let saveButtonInModalForm = $('#updateButtonInModal div');
 
@@ -24,20 +24,21 @@ let saveButtonInModalForm = $('#updateButtonInModal div');
 $(document).ready(function () {
     showAllUsers();
     navbar();
-    showUserPage();
+    showUserInfo();
 });
 
-/*создаем пользователя при нажатии кнопки Add User*/
 elementCreateUser.onclick = function () {
     newUser();
 };
 
-/*отрисовываем таблицу заного после создания нового пользователя*/
-elementUsers.onclick = function () {
-    showTheUsers();
+elementUserTable.onclick = function () {
+    showTheUserTable();
 };
 
-/*четыре элемента, необходимы для избежания дублирования кнопок при закрытии модального окна*/
+/*Можно ли как-то сократить стр. 42-56?
+* они отвечают за то, что бы кнопки update и delete не дублировались*/
+
+
 elementCloseDeleteModal1.onclick = function () {
     document.getElementById('delButtInModal').remove();
 };
@@ -54,21 +55,16 @@ elementCloseUpdateModal2.onclick = function () {
     document.getElementById('updButtInModal').remove();
 };
 
-/*прячем таблицу, при переходе на вкладку создание нового пользователя*/
 elementNewUser.onclick = function () {
-    hideTheUsers();
+    hideTheUserTable();
 };
 
-/*вывод всех пользователей на странице /admin/users*/
 function showAllUsers() {
 
-    /*НЕ ТРОГАТЬ *****
-
-    эти переменные необходимы, что передать в onclick имя функции
-
-                                на заметку
-    JS функцию можно передать как String с любым количеством входящих значений
-    На стороне HTML String Object - будет уже функцией JS(вроде как)*/
+    /*    эти переменные необходимы дабы передать в onclick имя функции!!*/
+    /*    ВНИМАНИЕ! НА ВСЯКИЙ СЛУЧАЙ, вдруг еще раз прийдется идти на гребанутый фронт
+        JS функцию можно передать как String с любым количеством входящих значений
+        На стороне HTML String Object - будет уже функцией JS!!!!*/
 
     let userIdForDelete = 0;
     let userIdForUpdate = 0;
@@ -93,9 +89,10 @@ function showAllUsers() {
 
                 tr.setAttribute('id', "userDataTable");
 
-                /*счетчик - костыль*/
+                /*счетчик - костыль для заполнения полей таблицы - правильной информацией
+                а так-же для передачи ID для заполнения модальных форм в дальнейшем*/
 
-                let counter = 0;
+                let counter = 0, td;
 
                 for (let o in user) {
                     let td = document.createElement('td');
@@ -149,7 +146,7 @@ function showAllUsers() {
         })
 }
 
-/*вывод информации об авторизированном пользователе на странице /admin/users и /user/userPage*/
+/*вывод информации об авторизированном пользователе на странице /admin/userTable и /user/userinfo*/
 function navbar() {
     fetch(authUserUrl)
         .then((response) => {
@@ -176,6 +173,10 @@ function navbar() {
 
 /*создание нового пользователя*/
 async function newUser() {
+
+
+    document.getElementById('hideTheUsersTable').hidden = true;
+    document.getElementById('hideTheCreateUserForm').hidden = false;
 
     let roleSelectedValues = Array.from(elementCreateUserRoles.selectedOptions).map(el => el.value);
     let roleArray = convertToRoleSet(roleSelectedValues);
@@ -206,11 +207,12 @@ async function newUser() {
             console.log(error);
         });
 
+
     return response.json();
 }
 
 /*отображение информации на странице пользователя*/
-function showUserPage() {
+function showUserInfo() {
     fetch(authUserUrl)
         .then((response) => {
             if (!response.ok) {
@@ -245,7 +247,7 @@ function showUserPage() {
                 }
             }
 
-            userPage.append(tr);
+            userInfo.append(tr);
 
         })
         .catch(error => {
@@ -328,13 +330,13 @@ function convertToRoleSet(Array) {
     return roleArray;
 }
 
-function hideTheUsers() {
+function hideTheUserTable() {
     document.getElementById('hideTheUsersTable').hidden = true;
     document.getElementById('hideTheCreateUserForm').hidden = false;
     clearTable();
 }
 
-function showTheUsers() {
+function showTheUserTable() {
     if (document.getElementById("userDataTable") == null) {
         showAllUsers();
     }

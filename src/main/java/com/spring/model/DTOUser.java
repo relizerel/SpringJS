@@ -1,6 +1,4 @@
-package com.spring.model.dto;
-
-import com.spring.model.Role;
+package com.spring.model;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -53,3 +51,4 @@ public class DTOUser {
         this.roleSet = roleSet;
     }
 }
+

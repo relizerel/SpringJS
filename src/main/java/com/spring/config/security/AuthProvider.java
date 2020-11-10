@@ -1,4 +1,4 @@
-package com.spring.security;
+package com.spring.config.security;
 
 import com.spring.model.User;
 import com.spring.service.interfaces.UserService;
@@ -48,3 +48,4 @@ public class AuthProvider implements AuthenticationProvider {
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(aClass);
     }
 }
+

@@ -27,7 +27,7 @@ public class RegController {
         return "reg";
     }
 
-    @PostMapping("/newuser")
+    @PostMapping("/newUser")
     public String createUser(User user) {
         user.getRoleSet().add(roleService.getDefaultRole());
         userService.addUser(user);

@@ -1,4 +1,4 @@
-package com.spring.handler;
+package com.spring.config.handler;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +25,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
-                                        Authentication authentication) throws IOException, ServletException {
+                                        Authentication authentication) throws IOException{
         handle(httpServletRequest, httpServletResponse, authentication);
         clearAuthAttr(httpServletRequest);
     }
@@ -36,7 +36,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         String targetUrl = determineTargetUrl(authentication);
 
         if (httpServletResponse.isCommitted()) {
-            System.out.println("response already commited");
+            System.out.println("response already committed");
         }
 
         redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, targetUrl);
